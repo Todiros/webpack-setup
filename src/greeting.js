@@ -2,4 +2,4 @@ const greeting = () => {
     return 'Hello Webpack'
 }
 
-export default greeting
+export default { greeting }
