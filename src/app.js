@@ -1,9 +1,9 @@
-import greeting from 'greeting'
+import greeting from './greeting.js'
 
 const component = () => {
     let element = document.createElement('div')
 
-    element.innerHTML = greeting()
+    element.innerHTML = greeting.greeting()
 
     return element;
 }
