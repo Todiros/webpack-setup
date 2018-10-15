@@ -1,4 +1,5 @@
 import greeting from './greeting.js'
+import './style/main.sass'
 
 const component = () => {
     let element = document.createElement('div')
