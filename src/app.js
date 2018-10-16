@@ -1,12 +1,10 @@
-import greeting from './greeting.js'
+import React from 'react'
+import { render } from 'react-dom'
+import Main from './components/Main'
 import './style/main.sass'
 
-const component = () => {
-    let element = document.createElement('div')
-
-    element.innerHTML = greeting.greeting()
-
-    return element
+if (module.hot) {
+    module.hot.accept();
 }
 
-document.body.appendChild(component())
+render(<Main />, document.getElementById('root'))

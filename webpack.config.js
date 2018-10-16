@@ -8,12 +8,25 @@ module.exports = {
     entry: './src/app.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].[chunkhash].js'
+        filename: 'bundle.[hash].js'
     },
+    devtool: 'eval-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
-        port: 3001
+        port: 3001,
+        hot: true
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'all',
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/
+                }
+            }
+        }
     },
     module: {
         rules: [{
@@ -21,7 +34,7 @@ module.exports = {
             exclude: /node-modules/,
             use: { 
                 loader: 'babel-loader',
-                options: { presets: ['@babel/preset-env']} 
+                options: { presets: ['@babel/preset-env', '@babel/preset-react']} 
             }
         },
         {
@@ -30,7 +43,9 @@ module.exports = {
         },
         {
             test: /\.sass$/,
-            use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']    
+            // MiniCssExtractPlugin doesn't work with HMR
+            //use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+            use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']     
         }]
     },
     plugins: [
